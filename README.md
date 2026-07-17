@@ -1,74 +1,43 @@
 # 📈 Stock Return Prediction using Linear Regression
 
-Predicting next-day stock returns using historical market data and statistical feature engineering.
+Predict the **next-day stock return** using historical stock market data and statistical feature engineering.
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
-![Pandas](https://img.shields.io/badge/Pandas-2.x-green)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.7-orange)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+This project builds an end-to-end machine learning pipeline that downloads historical stock prices, engineers quantitative features, trains a Linear Regression model, and evaluates its predictive performance.
 
 ---
 
-## 📌 Overview
+# 🎯 Why I Built It
 
-This project builds an end-to-end machine learning pipeline for predicting **next-day stock returns** from historical stock market data.
+Financial time series are noisy and difficult to predict.
 
-Instead of predicting stock prices directly, the model predicts **daily percentage returns**, a more common target in quantitative finance.
+The goal of this project was to understand the complete workflow of a quantitative research project:
 
-The pipeline includes:
+- Collect market data
+- Engineer predictive features
+- Train a statistical model
+- Evaluate predictive performance
+- Analyze model limitations
 
-- Historical stock data collection
-- Data preprocessing
-- Statistical feature engineering
-- Linear Regression model training
-- Performance evaluation
-- Visualization of predictions and model coefficients
-
----
-
-## 📂 Project Structure
-
-```text
-Stock-Return-Prediction/
-│
-├── config.py
-├── main.py
-├── requirements.txt
-├── README.md
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── outputs/
-│   ├── figures/
-│   └── metrics/
-│
-├── src/
-│   ├── data_loader.py
-│   ├── preprocessing.py
-│   ├── feature_engineering.py
-│   ├── train.py
-│   ├── evaluate.py
-│   ├── visualization.py
-│   └── utils.py
-│
-└── models/
-```
+Instead of predicting stock prices directly, this project predicts **next-day percentage returns**, which is a more common formulation in quantitative finance.
 
 ---
 
 # 📊 Dataset
 
-Historical daily stock data is downloaded from **Yahoo Finance** using the `yfinance` library.
+Source:
+- Yahoo Finance (using `yfinance`)
 
 Example stock:
-
 - Apple (AAPL)
 
-Columns:
+Period:
+- 2015 – 2025
 
-- Date
+Frequency:
+- Daily
+
+Raw features:
+
 - Open
 - High
 - Low
@@ -79,102 +48,81 @@ Columns:
 
 # ⚙️ Feature Engineering
 
-The following statistical features are created:
+Engineered features include:
 
-| Feature | Description |
-|----------|-------------|
-| Daily Return | Percentage change in closing price |
-| MA_5 | 5-Day Moving Average |
-| MA_10 | 10-Day Moving Average |
-| MA_20 | 20-Day Moving Average |
-| Volatility_5 | Rolling Standard Deviation |
-| Volatility_10 | Rolling Standard Deviation |
-| Momentum | Difference between consecutive closing prices |
-| Lag_Return_1 | Previous day's return |
-| Lag_Return_2 | Return from two days ago |
-| Lag_Return_3 | Return from three days ago |
-| Rolling_Return_Mean | Rolling mean of returns |
-| Rolling_Return_STD | Rolling standard deviation |
-| Volume_Change | Percentage change in trading volume |
-| High_Low_Spread | High − Low |
-| Open_Close_Diff | Open − Close |
+- Daily Return
+- Moving Average (5, 10, 20 days)
+- Rolling Volatility
+- Momentum
+- Lagged Returns
+- Rolling Mean Return
+- Rolling Standard Deviation
+- Volume Change
+- High-Low Spread
+- Open-Close Difference
 
----
-
-# 🎯 Target Variable
-
-The model predicts:
+Target variable:
 
 ```
 Tomorrow's Return
 ```
 
-which is calculated as
+---
 
-```
-Target = Daily_Return.shift(-1)
-```
+# 🤖 Model
+
+Model used:
+
+- Linear Regression
+
+Training strategy:
+
+- Chronological train-test split (80/20)
+- StandardScaler for feature normalization
+- No shuffling to preserve temporal order
 
 ---
 
-# 🤖 Machine Learning Pipeline
+# 📈 Results
 
-1. Download stock data
-2. Clean missing values
-3. Engineer statistical features
-4. Split data chronologically
-5. Standardize features
-6. Train Linear Regression
-7. Evaluate predictions
-8. Visualize results
+Evaluation metrics:
 
----
+| Metric | Value |
+|---------|------:|
+| MAE | 0.0082 |
+| RMSE | 0.0114 |
+| R² | 0.18 |
 
-# 📈 Evaluation Metrics
-
-The model is evaluated using:
-
-- Mean Absolute Error (MAE)
-- Root Mean Squared Error (RMSE)
-- R² Score
-
-Metrics are automatically saved to:
-
-```
-outputs/metrics/
-```
+*(Replace with your actual results after running the project.)*
 
 ---
 
-# 📊 Generated Visualizations
+# 📷 Sample Outputs
 
-The project automatically generates:
+## Actual vs Predicted
 
-- Actual vs Predicted Returns
-- Residual Plot
-- Residual Distribution
-- Feature Coefficient Plot
-
-Saved under:
-
-```
-outputs/figures/
-```
+![Actual vs Predicted](outputs/figures/actual_vs_predicted.png)
 
 ---
 
-# 🚀 Installation
+## Residual Plot
+
+![Residual Plot](outputs/figures/residual_plot.png)
+
+---
+
+## Feature Coefficients
+
+![Feature Importance](outputs/figures/feature_importance.png)
+
+---
+
+# 🚀 How to Run
 
 Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/Stock-Return-Prediction.git
-```
-
-Move into the project
-
-```bash
-cd Stock-Return-Prediction
+git clone https://github.com/<your-username>/Stock-Return-Prediction.git
 ```
 
 Install dependencies
@@ -183,10 +131,25 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Run
+Run the complete pipeline
 
 ```bash
 python main.py
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+src/
+├── data_loader.py
+├── preprocessing.py
+├── feature_engineering.py
+├── train.py
+├── evaluate.py
+├── visualization.py
+└── utils.py
 ```
 
 ---
@@ -196,64 +159,35 @@ python main.py
 - Python
 - Pandas
 - NumPy
-- Scikit-Learn
+- Scikit-learn
 - Matplotlib
-- Yahoo Finance API (yfinance)
+- yfinance
 - Joblib
 
 ---
 
-# 📌 Sample Workflow
+# ⚠️ Limitations
 
-```
-Download Data
-        │
-        ▼
-Data Cleaning
-        │
-        ▼
-Feature Engineering
-        │
-        ▼
-Linear Regression
-        │
-        ▼
-Prediction
-        │
-        ▼
-Evaluation
-        │
-        ▼
-Visualization
-```
+This project uses a simple Linear Regression model and therefore has several limitations:
+
+- Assumes a linear relationship between engineered features and future returns.
+- Does not incorporate macroeconomic indicators or company fundamentals.
+- Ignores transaction costs, slippage, and market impact.
+- Uses a single train-test split rather than walk-forward validation.
+- Does not optimize a trading strategy or portfolio.
 
 ---
 
-# 📷 Results
+# 🚀 Future Improvements
 
-Example outputs generated by the project:
-
-- Feature Importance
-- Prediction Plot
-- Residual Plot
-- Metrics JSON
-
-*(Add screenshots from the `outputs/figures` folder after running the project.)*
-
----
-
-# 📚 Future Improvements
-
-- Ridge Regression
-- Lasso Regression
+- Ridge and Lasso Regression
 - Random Forest Regressor
 - XGBoost
 - TimeSeriesSplit Cross Validation
-- Hyperparameter Tuning
-- LSTM-based Deep Learning Model
-- Portfolio Optimization
-- Multi-stock Prediction
-- Walk-forward Validation
+- Walk-forward validation
+- Technical indicators (RSI, MACD, Bollinger Bands)
+- Multi-stock prediction
+- Portfolio optimization
 
 ---
 
@@ -261,12 +195,9 @@ Example outputs generated by the project:
 
 **Karthik Challagundla**
 
-Computer Science Undergraduate
-
-Interested in
+Final-year B.Tech Computer Science student with interests in:
 
 - Quantitative Finance
-- Machine Learning
 - Statistics
-- Data Science
+- Machine Learning
 - Algorithmic Trading
