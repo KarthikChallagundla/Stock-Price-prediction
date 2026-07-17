@@ -122,7 +122,7 @@ Evaluation metrics:
 Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/Stock-Return-Prediction.git
+git clone https://github.com/KarthikChallagundla/Stock-Return-Prediction.git
 ```
 
 Install dependencies
