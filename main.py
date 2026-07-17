@@ -18,6 +18,8 @@ from src.preprocessing import Preprocessor
 
 from src.feature_engineering import FeatureEngineer
 
+from src.train import ModelTrainer
+
 
 def main():
 
@@ -54,6 +56,10 @@ def main():
     featured_df = engineer.create_features(clean_df)
 
     engineer.save(featured_df)
+
+    trainer = ModelTrainer()
+
+    model, X_test, y_test, feature_names = trainer.run()
 
 
 if __name__ == "__main__":
