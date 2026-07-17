@@ -16,6 +16,8 @@ from src.data_loader import StockDownloader
 
 from src.preprocessing import Preprocessor
 
+from src.feature_engineering import FeatureEngineer
+
 
 def main():
 
@@ -42,6 +44,16 @@ def main():
     processor.save(clean)
 
     print("\nProject initialized successfully.")
+
+    # Feature Engineering
+
+    engineer = FeatureEngineer()
+
+    clean_df = engineer.load()
+
+    featured_df = engineer.create_features(clean_df)
+
+    engineer.save(featured_df)
 
 
 if __name__ == "__main__":
