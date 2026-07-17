@@ -89,11 +89,9 @@ Evaluation metrics:
 
 | Metric | Value |
 |---------|------:|
-| MAE | 0.0082 |
-| RMSE | 0.0114 |
-| R² | 0.18 |
-
-*(Replace with your actual results after running the project.)*
+| MAE | 0.010614 |
+| RMSE | 0.014210 |
+| R² | -0.116813 |
 
 ---
 
