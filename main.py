@@ -20,6 +20,11 @@ from src.feature_engineering import FeatureEngineer
 
 from src.train import ModelTrainer
 
+from src.evaluate import ModelEvaluator
+from src.visualization import Visualizer
+import joblib
+from config import MODEL_DIR
+
 
 def main():
 
@@ -60,6 +65,21 @@ def main():
     trainer = ModelTrainer()
 
     model, X_test, y_test, feature_names = trainer.run()
+
+    evaluator = ModelEvaluator()
+
+    y_test, predictions = evaluator.run()
+
+    visualizer = Visualizer()
+
+    visualizer.actual_vs_predicted(y_test, predictions)
+    visualizer.residual_plot(y_test, predictions)
+    visualizer.residual_histogram(y_test, predictions)
+
+    model = joblib.load(MODEL_DIR/"linear_regression.pkl")
+    feature_names = joblib.load(MODEL_DIR/"feature_names.pkl")
+
+    visualizer.feature_coefficients(model, feature_names)
 
 
 if __name__ == "__main__":
